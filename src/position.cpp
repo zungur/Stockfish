@@ -476,6 +476,13 @@ void Position::set_check_info() const {
     update_slider_blockers(WHITE);
     update_slider_blockers(BLACK);
 
+    set_check_squares();
+}
+
+
+// Computes the squares from which a piece of the side to move would give check
+void Position::set_check_squares() const {
+
     Square ksq = square<KING>(~sideToMove);
 
     st->checkSquares[PAWN]   = attacks_bb<PAWN>(ksq, ~sideToMove);
@@ -1373,7 +1380,7 @@ void Position::do_null_move(StateInfo& newSt) {
 
     sideToMove = ~sideToMove;
 
-    set_check_info();
+    set_check_squares();
 
     st->repetition = 0;
 

@@ -194,6 +194,7 @@ class Position {
     Key  compute_material_key() const;
     void set_state() const;
     void set_check_info() const;
+    void set_check_squares() const;
 
     // Other helpers
     template<bool ComputeRay = true>
