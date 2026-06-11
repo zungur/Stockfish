@@ -93,7 +93,6 @@ class Thread {
     // appropriate specificity regarding search, from the point of view of an
     // outside user, so renaming of this function is left for whenever that happens.
     void  wait_for_search_finished();
-    usize id() const { return idx; }
 
     LargePagePtr<Search::Worker> worker;
     std::function<void()>        jobFunc;

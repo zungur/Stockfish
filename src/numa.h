@@ -702,8 +702,6 @@ class NumaConfig {
         return nodes[n].size();
     }
 
-    CpuIndex num_cpus() const { return nodeByCpu.size(); }
-
     bool requires_memory_replication() const { return customAffinity || nodes.size() > 1; }
 
     std::string to_string() const {
