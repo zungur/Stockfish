@@ -69,7 +69,6 @@ struct PVMoves {
     Move&       operator[](usize index) { return moves[index]; }
     const Move& operator[](usize index) const { return moves[index]; }
 
-    bool  empty() const { return length == 0; }
     usize size() const { return length; }
 
     void clear() { length = 0; }
@@ -297,8 +296,6 @@ class SearchManager: public ISearchManager {
     Value                bestPreviousAverageScore;
     bool                 stopOnPonderhit;
 
-    usize id;
-
     const UpdateContext& updates;
 };
 
@@ -369,7 +366,6 @@ class Worker {
     }
 
     TimePoint elapsed() const;
-    TimePoint elapsed_time() const;
 
     Value evaluate(const Position&);
 
