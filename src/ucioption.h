@@ -51,7 +51,6 @@ class Option {
     operator int() const;
     operator std::string() const;
     bool operator==(const char*) const;
-    bool operator!=(const char*) const;
 
     friend std::ostream& operator<<(std::ostream&, const OptionsMap&);
 
