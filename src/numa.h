@@ -70,8 +70,6 @@ using GetThreadSelectedCpuSetMasks_t = BOOL (*)(HANDLE, PGROUP_AFFINITY, USHORT,
 
 #endif
 
-#include "misc.h"
-
 namespace Stockfish {
 
 using CpuIndex  = usize;
