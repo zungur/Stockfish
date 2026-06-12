@@ -338,6 +338,7 @@ class Worker {
     CapturePieceToHistory           captureHistory;
     ContinuationHistory             continuationHistory[2][2];
     CorrectionHistory<Continuation> continuationCorrectionHistory;
+    CorrectionHistory<PieceTo>      lastMoveCorrectionHistory;
 
     TTMoveHistory    ttMoveHistory;
     SharedHistories& sharedHistory;
