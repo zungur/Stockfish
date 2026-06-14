@@ -94,8 +94,10 @@ int correction_value(const Worker& w, const Position& pos, const Stack* const ss
             * ((*(ss - 2)->continuationCorrectionHistory)[pos.piece_on(m.to_sq())][m.to_sq()]
                + (*(ss - 4)->continuationCorrectionHistory)[pos.piece_on(m.to_sq())][m.to_sq()])
           : 64549;
+    // 1-ply last-move corrhist: reflexive entry in the slice keyed by the arrival move.
     const int lmcv =
-      m.is_ok() ? w.lastMoveCorrectionHistory[pos.piece_on(m.to_sq())][m.to_sq()] : 0;
+      m.is_ok() ? (*(ss - 1)->continuationCorrectionHistory)[pos.piece_on(m.to_sq())][m.to_sq()]
+                : 0;
 
     return 13345 * pcv + 9280 * micv + 11840 * (wnpcv + bnpcv) + cntcv + 8192 * lmcv;
 }
@@ -127,7 +129,7 @@ void update_correction_history(const Position& pos,
         const Piece  pc = pos.piece_on(to);
         (*(ss - 2)->continuationCorrectionHistory)[pc][to] << bonus * 136 / 128;
         (*(ss - 4)->continuationCorrectionHistory)[pc][to] << bonus * 68 / 128;
-        workerThread.lastMoveCorrectionHistory[pc][to] << bonus * 128 / 128;
+        (*(ss - 1)->continuationCorrectionHistory)[pc][to] << bonus;
     }
 }
 
@@ -672,8 +674,6 @@ void Search::Worker::clear() {
     for (auto& to : continuationCorrectionHistory)
         for (auto& h : to)
             h.fill(5);
-
-    lastMoveCorrectionHistory.fill(0);
 
     for (bool inCheck : {false, true})
         for (StatsType c : {NoCaptures, Captures})
