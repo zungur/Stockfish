@@ -47,11 +47,6 @@ class Score {
     Score(Value v, const Position& pos);
 
     template<typename T>
-    bool is() const {
-        return std::holds_alternative<T>(score);
-    }
-
-    template<typename T>
     T get() const {
         return std::get<T>(score);
     }

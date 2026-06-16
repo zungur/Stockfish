@@ -92,8 +92,7 @@ class Thread {
     // require further work to make them properly generic while maintaining
     // appropriate specificity regarding search, from the point of view of an
     // outside user, so renaming of this function is left for whenever that happens.
-    void  wait_for_search_finished();
-    usize id() const { return idx; }
+    void wait_for_search_finished();
 
     LargePagePtr<Search::Worker> worker;
     std::function<void()>        jobFunc;
@@ -101,7 +100,7 @@ class Thread {
    private:
     std::mutex                mutex;
     std::condition_variable   cv;
-    usize                     idx, idxInNuma, totalNuma, nthreads;
+    usize                     idx, idxInNuma, totalNuma;
     bool                      exit = false, searching = true;  // Set before starting std::thread
     NativeThread              stdThread;
     NumaReplicatedAccessToken numaAccessToken;

@@ -70,8 +70,6 @@ using GetThreadSelectedCpuSetMasks_t = BOOL (*)(HANDLE, PGROUP_AFFINITY, USHORT,
 
 #endif
 
-#include "misc.h"
-
 namespace Stockfish {
 
 using CpuIndex  = usize;
@@ -701,8 +699,6 @@ class NumaConfig {
         assert(n < nodes.size());
         return nodes[n].size();
     }
-
-    CpuIndex num_cpus() const { return nodeByCpu.size(); }
 
     bool requires_memory_replication() const { return customAffinity || nodes.size() > 1; }
 
