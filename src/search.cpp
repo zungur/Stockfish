@@ -1803,8 +1803,13 @@ Value Search::Worker::qsearch(Position& pos, Stack* ss, Value alpha, Value beta)
 
         // Only check for stalemate under specific conditions
         Color us = pos.side_to_move();
+        Piece cap  = pos.captured_piece();
+        if (cap == NO_PIECE && (ss - 1)->currentMove == Move::null())
+            if (const StateInfo* prev = pos.state()->previous)
+                cap = prev->capturedPiece;
+
         if (!(pawn_single_push_bb(us, pos.pieces(us, PAWN)) & ~pos.pieces())
-            && !pos.non_pawn_material(us) && type_of(pos.captured_piece()) >= KNIGHT
+            && !pos.non_pawn_material(us) && type_of(cap) >= KNIGHT
             && !MoveList<LEGAL>(pos).size())
             bestValue = VALUE_DRAW;
     }
